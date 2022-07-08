@@ -217,8 +217,12 @@ class Menu extends CI_Controller
 
         // create style
         $default_border = array(
-            'style' => PHPExcel_Style_Border::BORDER_THIN,
-            'color' => array('rgb' => '000000')
+            'borders' => array(
+                'allborders' => array(
+                    'style' => PHPExcel_Style_Border::BORDER_THIN,
+                    'color' => array('rgb' => '000000')
+                ),
+            ),
         );
         $style_header = array(
             'borders' => array(
@@ -267,36 +271,44 @@ class Menu extends CI_Controller
 
         $object->setActiveSheetIndex(0);
 
-        $object->getActiveSheet()->setCellValue('A1', 'NO');
-        $object->getActiveSheet()->setCellValue('B1', 'Nip');
+        $object->getActiveSheet()->setCellValue('A1', 'No');
+        $object->getActiveSheet()->setCellValue('B1', 'NIP');
         $object->getActiveSheet()->setCellValue('C1', 'Nama');
-        $object->getActiveSheet()->setCellValue('D1', 'Slug');
-        $object->getActiveSheet()->setCellValue('E1', 'Satker');
-        $object->getActiveSheet()->setCellValue('F1', 'Instansi');
-        $object->getActiveSheet()->setCellValue('G1', 'Kepentingan');
+        $object->getActiveSheet()->setCellValue('D1', 'Instansi');
+        $object->getActiveSheet()->setCellValue('E1', 'Layanan');
+        $object->getActiveSheet()->setCellValue('F1', 'Kepentingan');
+        $object->getActiveSheet()->setCellValue('G1', 'Satker');
         $object->getActiveSheet()->setCellValue('H1', 'No Hp');
-        $object->getActiveSheet()->setCellValue('I1', 'Layanan');
-        $object->getActiveSheet()->setCellValue('J1', 'Counter');
-        $object->getActiveSheet()->getStyle('A1:J1')->applyFromArray($style_header); // give style to header
+        $object->getActiveSheet()->getStyle('A1:H1')->applyFromArray($style_header); // give style to header
 
         $baris = 2;
         $no = 1;
         $firststyle = 'A2';
-        $laststyle = 'J2';
+        $laststyle = 'H2';
         foreach ($data['data'] as $mds) {
             $object->getActiveSheet()->setCellValue('A' . $baris, $no++);
             $object->getActiveSheet()->setCellValue('B' . $baris, $mds->nip);
             $object->getActiveSheet()->setCellValue('C' . $baris, $mds->nama);
-            $object->getActiveSheet()->setCellValue('D' . $baris, $mds->slug);
-            $object->getActiveSheet()->setCellValue('E' . $baris, $mds->satker);
-            $object->getActiveSheet()->setCellValue('F' . $baris, $mds->instansi);
-            $object->getActiveSheet()->setCellValue('G' . $baris, $mds->kepentingan);
+            $object->getActiveSheet()->setCellValue('D' . $baris, $mds->instansi);
+            $object->getActiveSheet()->setCellValue('E' . $baris, $mds->layanan);
+            $object->getActiveSheet()->setCellValue('F' . $baris, $mds->kepentingan);
+            $object->getActiveSheet()->setCellValue('G' . $baris, $mds->satker);
             $object->getActiveSheet()->setCellValue('H' . $baris, $mds->nohp);
-            $object->getActiveSheet()->setCellValue('I' . $baris, $mds->layanan);
-            $object->getActiveSheet()->setCellValue('J' . $baris, $mds->counter);
             $baris++;
-            $laststyle = 'J' . $baris;
+            $laststyle = 'H' . $baris;
         }
+        $object->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
+        $object->getActiveSheet()->getStyle('A1:I1')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+
+        $object->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension("C")->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension("D")->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension("E")->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension("F")->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension("G")->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension("H")->setAutoSize(true);
+
 
         $object->getActiveSheet()->getStyle($firststyle . ':' . $laststyle)->applyFromArray($style_content); // give style to header
         $filename = "Data" . '.xlsx';
@@ -320,7 +332,7 @@ class Menu extends CI_Controller
         $this->load->view('menu/pdf', $data);
 
         $paper_size = 'A4';
-        $orientation = 'landscape';
+        $orientation = 'potrait';
         $html = $this->output->get_output();
 
         $this->dompdf->set_paper($paper_size, $orientation);

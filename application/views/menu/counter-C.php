@@ -102,7 +102,7 @@
                         <div class="card-body">
                             <div class="chart-pie pt-4 pb-2">
                                 <?php foreach ($display as $vd) : ?>
-                                    <video width="360" height="auto" controls>
+                                    <video width="485" height="auto" controls>
                                         <source src="<?= base_url('assets/img/profile/') . $vd['video']; ?>" type="video/mp4" />
                                     </video>
                                 <?php endforeach; ?>
