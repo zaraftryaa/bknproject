@@ -1,4 +1,4 @@
-<?php 
+<?php
 defined('BASEPATH') or exit('No direct script access allowed');
 
 class Menu_model extends CI_Model
@@ -19,7 +19,7 @@ class Menu_model extends CI_Model
 
     public function tampil_data()
     {
-    return $this->db->get('layanan');
+        return $this->db->get('layanan');
     }
 
     public function cariData()
@@ -61,7 +61,8 @@ class Menu_model extends CI_Model
     public function ubahDataDisplay($id)
     {
         $data = [
-            "quotes" => $this->input->post('quotes', true)        ];
+            "quotes" => $this->input->post('quotes', true)
+        ];
 
         $this->db->where('id', $this->input->post('id'));
         $this->db->update('display', $data);
@@ -71,14 +72,14 @@ class Menu_model extends CI_Model
     {
         //
         $this->db->query('UPDATE layanan set status = 1 
-        WHERE id = "'.$id.'"');
+        WHERE id = "' . $id . '"');
     }
 
     public function update_2($id)
     {
         //
         $this->db->query('UPDATE layanan set status = 2 
-        WHERE id = "'.$id.'"');
+        WHERE id = "' . $id . '"');
     }
 
     public function get_layanan()

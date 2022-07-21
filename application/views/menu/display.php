@@ -23,7 +23,7 @@
                     <tr>
                         <th scope="col">No</th>
                         <th scope="col">Quotes</th>
-                        <th scope="col">Video</th>
+                        <th scope="col">Picture</th>
                         <th scope="col">Action</th>
 
                     </tr>

@@ -279,12 +279,13 @@ class Menu extends CI_Controller
         $object->getActiveSheet()->setCellValue('F1', 'Kepentingan');
         $object->getActiveSheet()->setCellValue('G1', 'Satker');
         $object->getActiveSheet()->setCellValue('H1', 'No Hp');
-        $object->getActiveSheet()->getStyle('A1:H1')->applyFromArray($style_header); // give style to header
+        $object->getActiveSheet()->setCellValue('I1', 'Tanggal');
+        $object->getActiveSheet()->getStyle('A1:I1')->applyFromArray($style_header); // give style to header
 
         $baris = 2;
         $no = 1;
         $firststyle = 'A2';
-        $laststyle = 'H2';
+        $laststyle = 'I2';
         foreach ($data['data'] as $mds) {
             $object->getActiveSheet()->setCellValue('A' . $baris, $no++);
             $object->getActiveSheet()->setCellValue('B' . $baris, $mds->nip);
@@ -294,11 +295,12 @@ class Menu extends CI_Controller
             $object->getActiveSheet()->setCellValue('F' . $baris, $mds->kepentingan);
             $object->getActiveSheet()->setCellValue('G' . $baris, $mds->satker);
             $object->getActiveSheet()->setCellValue('H' . $baris, $mds->nohp);
+            $object->getActiveSheet()->setCellValue('I' . $baris, $mds->created_at);
             $baris++;
-            $laststyle = 'H' . $baris;
+            $laststyle = 'I' . $baris;
         }
-        $object->getActiveSheet()->getStyle('A1:H1')->getFont()->setBold(true);
-        $object->getActiveSheet()->getStyle('A1:I1')->getBorders()->getAllBorders()->setBorderStyle(PHPExcel_Style_Border::BORDER_THIN);
+        $object->getActiveSheet()->getStyle('A1:I1')->getFont()->setBold(true);
+
 
         $object->getActiveSheet()->getColumnDimension("A")->setAutoSize(true);
         $object->getActiveSheet()->getColumnDimension("B")->setAutoSize(true);
@@ -308,6 +310,7 @@ class Menu extends CI_Controller
         $object->getActiveSheet()->getColumnDimension("F")->setAutoSize(true);
         $object->getActiveSheet()->getColumnDimension("G")->setAutoSize(true);
         $object->getActiveSheet()->getColumnDimension("H")->setAutoSize(true);
+        $object->getActiveSheet()->getColumnDimension("I")->setAutoSize(true);
 
 
         $object->getActiveSheet()->getStyle($firststyle . ':' . $laststyle)->applyFromArray($style_content); // give style to header
@@ -395,7 +398,7 @@ class Menu extends CI_Controller
             $upload_image = $_FILES['video']['name'];
 
             if ($upload_image) {
-                $config['allowed_types'] = 'mp4';
+                $config['allowed_types'] = 'png|jpg|jpeg';
                 $config['max_size']      = '100000';
                 $config['upload_path'] = './assets/img/profile/';
 
@@ -470,7 +473,7 @@ class Menu extends CI_Controller
 
         $this->load->view('templates/header', $data);
         //$this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        //$this->load->view('templates/topbar', $data);
         $this->load->view('menu/counter-B', $data);
         $this->load->view('templates/footer');
     }
@@ -487,7 +490,7 @@ class Menu extends CI_Controller
 
         $this->load->view('templates/header', $data);
         //$this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        //$this->load->view('templates/topbar', $data);
         $this->load->view('menu/counter-C', $data);
         $this->load->view('templates/footer');
     }
@@ -504,7 +507,7 @@ class Menu extends CI_Controller
 
         $this->load->view('templates/header', $data);
         //$this->load->view('templates/sidebar', $data);
-        $this->load->view('templates/topbar', $data);
+        //$this->load->view('templates/topbar', $data);
         $this->load->view('menu/counter-D', $data);
         $this->load->view('templates/footer');
     }

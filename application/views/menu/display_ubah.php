@@ -17,7 +17,7 @@
                 </div>
             </div>
             <div class="form-group row">
-                <label for="video" class="col-sm-2 col-form-label">Video</label>
+                <label for="video" class="col-sm-2 col-form-label">Picture</label>
                 <div class="col-sm-7">
                     <div class="row">
                         <div class="col-sm-0">

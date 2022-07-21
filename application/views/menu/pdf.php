@@ -52,6 +52,7 @@
                 <th scope="col">Satker</th>
                 <th scope="col">Kepentingan</th>
                 <th scope="col">No. HP</th>
+                <th scope="col">Tanggal</th>
             </tr>
         </thead>
         <tbody>
@@ -66,6 +67,7 @@
                     <td><?= $sm['satker']; ?></td>
                     <td><?= $sm['kepentingan']; ?></td>
                     <td><?= $sm['nohp']; ?></td>
+                    <td><?= $sm['created_at']; ?></td>
                 </tr>
                 <?php $i++; ?>
             <?php endforeach; ?>
